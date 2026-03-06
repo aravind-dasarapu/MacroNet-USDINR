@@ -15,15 +15,15 @@ import matplotlib.pyplot as plt
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 
-def volatility_weighted_loss(y_true, y_pred):
-    # Standard MSE
-    squared_difference = tf.square(y_true - y_pred)
+# def volatility_weighted_loss(y_true, y_pred):
+#     # Standard MSE
+#     squared_difference = tf.square(y_true - y_pred)
     
-    # Increase weight when the true target move is large (High Volatility)
-    # This prevents the model from settling for a "Safe Average"
-    weight = tf.abs(y_true) + 0.1 # The 0.1 is a base weight
+#     # Increase weight when the true target move is large (High Volatility)
+#     # This prevents the model from settling for a "Safe Average"
+#     weight = tf.abs(y_true) + 0.1 # The 0.1 is a base weight
     
-    return tf.reduce_mean(squared_difference * weight)    
+#     return tf.reduce_mean(squared_difference * weight)    
 
 
 def build_lstm_model(input_shape):
