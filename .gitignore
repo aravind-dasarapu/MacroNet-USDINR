@@ -1,0 +1,17 @@
+```text
+# Environments
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Data files (keep the folder, ignore the CSVs)
+data/*.csv
+data/*.xlsx
+data/*.h5
+
+# OS files
+.DS_Store
