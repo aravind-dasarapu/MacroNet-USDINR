@@ -1,150 +1,165 @@
-import os
-import pandas as pd
-import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout, Input, LeakyReLU, GaussianNoise, BatchNormalization, Conv1D, MaxPooling1D, Flatten, concatenate, Reshape
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
-from tensorflow.keras.regularizers import l2
+from tensorflow.keras.layers import LSTM, Dense, Dropout, BatchNormalization, LayerNormalization, Conv1D, Activation, Input
 from sklearn.preprocessing import RobustScaler
-from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import TimeSeriesSplit
-import matplotlib.pyplot as plt
+from tensorflow.keras.callbacks import EarlyStopping
+import pandas as pd
+import numpy as np
 
-# 1. HARDWARE SETTINGS
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+# 1. Custom Loss with Directional Penalty
+def directional_log_cosh(y_true, y_pred):
+    y_true = tf.cast(y_true, tf.float32)
+    y_pred = tf.cast(y_pred, tf.float32)
 
+    error = y_pred - y_true
+    # Log-cosh is like MSE for small errors and MAE for large ones
+    log_cosh = tf.math.log(tf.math.cosh(error + 1e-12))
 
-def volatility_weighted_loss(y_true, y_pred):
-    # Standard MSE
-    squared_difference = tf.square(y_true - y_pred)
-    
-    # Increase weight when the true target move is large (High Volatility)
-    # This prevents the model from settling for a "Safe Average"
-    weight = tf.abs(y_true) + 0.1 # The 0.1 is a base weight
-    
-    return tf.reduce_mean(squared_difference * weight)    
+    # Penalize if the model predicts 'Up' when market goes 'Down'
+    # Adding a small epsilon to sign to avoid 0-case issues
+    same_direction = tf.equal(tf.math.sign(y_true), tf.math.sign(y_pred))
+    penalty = tf.where(same_direction, 1.0, 2.5) # Increased penalty to 2.5 for forex niche
 
+    return tf.reduce_mean(log_cosh * penalty)
 
-def build_lstm_model(input_shape):
-
-    # inputs = Input(shape=input_shape),
-
-
-    # cnn = Conv1D(filters  = 16, kernel_size=2, activation='relu')(inputs)
-    # cnn = Flatten()(cnn)
-
-    # LSTM(64, return_sequences=True, 
-    #      kernel_regularizer=l2(1e-6), recurrent_regularizer=l2(1e-6),),
-    # BatchNormalization(),
-    # Dropout(0.2),
-    
-    # lstm = LSTM(32, return_sequences=False, 
-    #         kernel_regularizer=l2(1e-6), recurrent_regularizer=l2(1e-6))(inputs)
-    
-    # merged = concatenate([cnn, lstm])
-
-    # # LeakyReLU ensures the model doesn't "die" and output zero
-    # x = Dense(16, activation='relu')(merged)
-    # x = Dropout(0.1)(x)
-    # outputs = Dense(1)(x) 
-    
-    # model = tf.keras.Model(inputs=inputs, outputs=outputs)
-    # # Higher learning rate to help the model escape the "flat line" local minima
-
+# 2. Hybrid CNN-LSTM Model (MacroNet Architecture)
+def build_fixed_lstm_model(input_shape):
     model = Sequential([
         Input(shape=input_shape),
-        Conv1D(filters=16, kernel_size=2, activation='relu', padding='causal'),
-        BatchNormalization(),
-
-        LSTM(64, return_sequences=False, kernel_regularizer=l2(1e-6), recurrent_regularizer=l2(1e-6)),
+        # Spatial Dropout drops entire feature maps, better for time-series
+        tf.keras.layers.SpatialDropout1D(0.2),
         BatchNormalization(),
         
-        Dense(16, activation='relu'),
-        LeakyReLU(alpha=0.1),
-        Dropout(0.2),
-        Dense(1, dtype='float32')
+        # CNN layer to extract local temporal patterns (Nifty/Oil correlations)
+        Conv1D(filters=64, kernel_size=3, padding='causal'),
+        BatchNormalization(),
+        Activation('swish'),
+        
+        # LSTM for long-term dependency
+        LSTM(128, return_sequences=True),
+        LayerNormalization(),
+        Dropout(0.3),
+        
+        LSTM(64, return_sequences=False),
+        LayerNormalization(),
+        Dropout(0.3),
+        
+        Dense(32, activation='swish', kernel_regularizer=tf.keras.regularizers.l2(0.01)),
+        Dense(1, dtype='float32') # Predicted smoothed log return
     ])
-    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0005)
-    model.compile(optimizer=optimizer, loss='Huber', metrics=['mae'])
+    
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0005, amsgrad=True)
+    model.compile(optimizer=optimizer, loss=directional_log_cosh, metrics=['mae'])
     return model
 
-def run_training_pipeline():
+# 3. Optimized Pipeline
+def run_fixed_training_pipeline():
     try:
-        data_path = os.path.join(os.path.dirname(__file__), "../data/data.csv")
+        data_path = '/content/usdinr_processed_data.csv'
         df = pd.read_csv(data_path, index_col=0)
+        df.index = pd.to_datetime(df.index)
     except:
-        print("CSV not found.")
+        print('CSV not found. Ensure the build and preprocess scripts ran successfully.')
         return
 
-    df = df.replace([np.inf, -np.inf], np.nan).ffill().bfill().dropna().astype('float32')
+    # Clean and Scale Target
+    df = df.replace([np.inf, -np.inf], np.nan).ffill().bfill().dropna()
+    
+    # We use 100x to make returns more readable for the loss function
+    y_raw = df['Target'].values.astype('float32') * 100
+    X_raw = df.drop(columns=['Target']).values.astype('float32')
+    
+    window_size = 30 # Reduced to 30 to capture monthly macro cycles
+    
+    # Vectorized Windowing (Faster than for-loop)
+    def create_windows(data, target, window):
+        X, y = [], []
+        for i in range(len(data) - window):
+            X.append(data[i : i + window])
+            y.append(target[i + window])
+        return np.array(X), np.array(y)
 
-    # --- CHANGE 1: SCALE TARGET ---
-    # Multiplying by 100 makes the returns visible to the model's loss function
-    target = df['Target'].values * 100 
-    features = df.drop(columns=['Target']).values 
-    raw_target = df['Target'].values
-    smoothed_target = df['Target'].ewm(alpha=0.3).mean().values
+    X, y = create_windows(X_raw, y_raw, window_size)
+    print(f"Dataset ready: {X.shape[0]} sequences of {window_size} days.")
 
-    window_size = 5
-    X, y = [], []
-    for i in range(len(features) - window_size):
-        X.append(features[i : i + window_size])
-        y.append(target[i + window_size])
-    X, y = np.array(X), np.array(y)
-
-    tscv = TimeSeriesSplit(n_splits=3)
-
+    # TimeSeriesSplit ensures no look-ahead bias
+    tscv = TimeSeriesSplit(n_splits=5)
+    final_y_test, final_preds = None, None
+    
     for fold, (train_idx, test_idx) in enumerate(tscv.split(X)):
-        print(f"\n--- FOLD {fold + 1} ---")
         X_train, X_test = X[train_idx], X[test_idx]
         y_train, y_test = y[train_idx], y[test_idx]
-        
+
+        # RE-SCALING PER FOLD: Prevents future leakage
         scaler = RobustScaler()
-        X_train_reshaped = X_train.reshape(-1, X_train.shape[-1])
-        X_train_scaled = scaler.fit_transform(X_train_reshaped).reshape(X_train.shape)
-        X_test_scaled = scaler.transform(X_test.reshape(-1, X_test.shape[-1])).reshape(X_test.shape)
-
-        X_train_scaled = np.nan_to_num(X_train_scaled)
-        X_test_scaled = np.nan_to_num(X_test_scaled)
-
-        model = build_lstm_model((X_train_scaled.shape[1], X_train_scaled.shape[2]))
+        # Flatten for scaling, then reshape back to (Samples, Time, Features)
+        s, t, f = X_train.shape
+        X_train_reshaped = X_train.reshape(-1, f)
+        X_train_s = scaler.fit_transform(X_train_reshaped).reshape(s, t, f)
         
-        # --- CHANGE 2: CALLBACKS ---
-        # ReduceLROnPlateau helps if the model gets stuck
-        reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=10, min_lr=1e-5)
-        early_stop = EarlyStopping(monitor='val_loss', patience=25, restore_best_weights=True)
+        X_test_s = scaler.transform(X_test.reshape(-1, f)).reshape(X_test.shape)
 
-        model.fit(X_train_scaled, y_train, 
-                  epochs=150, # 200 might be too much, 150 is a sweet spotc
-                  batch_size=64, 
-                  validation_data=(X_test_scaled, y_test),
-                  callbacks=[reduce_lr, early_stop],
-                  verbose=1)
+        model = build_fixed_lstm_model((window_size, f))
+        
+        # Early stopping based on Validation Loss
+        es = EarlyStopping(monitor='val_loss', patience=8, restore_best_weights=True)
+        
+        print(f"Training Fold {fold + 1}...")
+        model.fit(
+            X_train_s, y_train, 
+            epochs=100, # Increased epochs with early stopping
+            batch_size=32, 
+            validation_data=(X_test_s, y_test), 
+            verbose=0,
+            callbacks=[es]
+        )
+        
+        # Directional Accuracy (The metric that matters for FX)
+        preds = model.predict(X_test_s, verbose=0).flatten()
+        
+        # Logic: Did we get the 'sign' right?
+        acc = np.mean(np.sign(preds) == np.sign(y_test)) * 100
+        print(f'Fold {fold + 1} | Directional Acc: {acc:.2f}% | Val MAE: {np.mean(np.abs(preds - y_test)):.4f}')
 
-        # --- CHANGE 3: REVERSE SCALING FOR PLOT ---
-        y_pred_scaled = model.predict(X_test_scaled, verbose=0).flatten()
-        
-        # Scale back to original size for accurate MAE and plotting
-        y_pred = y_pred_scaled / 100
-        y_test_orig = y_test / 100
-        
-        y_test_actual_raw = raw_target[test_idx]
-        correct_direction = np.sign(y_pred) == np.sign(y_test_actual_raw)
-        accuracy = np.mean(correct_direction) * 100
-        
-        print(f"✅ Fold {fold + 1} Directional Accuracy: {accuracy:.2f}%")
-        
-        # 3. Visualization
-        plt.figure(figsize=(15, 6))
-        zoom_range = 100 
-        plt.plot(y_test_orig[-zoom_range:], label='Actual Returns', color='black', alpha=0.5)
-        plt.plot(y_pred[-zoom_range:], label='LSTM Prediction (Bold)', color='red', linewidth=1.5)
-        plt.axhline(0, color='blue', linestyle='--', alpha=0.3)
-        plt.title(f"Fold {fold+1} | Accuracy: {accuracy:.2f}% | MAE: {mean_absolute_error(y_test_orig, y_pred):.6f}")
-        plt.legend()
-        plt.grid(True, alpha=0.2)
-        plt.show()
+        if fold == 4: # Fold 5 (index 4)
+            final_y_test = y_test
+            final_preds = preds
+    if final_y_test is not None:
+        print("\nGenerating Backtest Visualization for the Final Fold...")
+        plot_backtest_results(final_y_test, final_preds)
 
-if __name__ == "__main__":
-    run_training_pipeline()
+import matplotlib.pyplot as plt
+
+def plot_backtest_results(y_test, oos_preds):
+    # 1. Prepare Data
+    results = pd.DataFrame({
+        'Actual_Ret': y_test / 100, # Convert back from the 100x scaling
+        'Pred_Ret': oos_preds / 100
+    })
+    
+    # 2. Strategy: Go with the sign of the prediction
+    results['Strategy_Ret'] = np.sign(results['Pred_Ret']) * results['Actual_Ret']
+    
+    # 3. Calculate Cumulative Returns
+    results['Cum_Market'] = (1 + results['Actual_Ret']).cumprod()
+    results['Cum_Strategy'] = (1 + results['Strategy_Ret']).cumprod()
+    
+    # 4. Plotting
+    plt.figure(figsize=(14, 7))
+    plt.plot(results['Cum_Strategy'], label='MacroNet Strategy', color='forestgreen', lw=2)
+    plt.plot(results['Cum_Market'], label='Buy & Hold (Market)', color='gray', linestyle='--', alpha=0.7)
+    
+    plt.title('USDINR Strategy Backtest: Fold 5 (Out-of-Sample)', fontsize=14)
+    plt.xlabel('Days in Test Set')
+    plt.ylabel('Cumulative Growth')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()
+
+    # Calculate Sharpe Ratio (Simplified)
+    sharpe = (results['Strategy_Ret'].mean() / (results['Strategy_Ret'].std() + 1e-9)) * np.sqrt(252)
+    print(f"Strategy Sharpe Ratio: {sharpe:.2f}")
+
+
+run_fixed_training_pipeline()

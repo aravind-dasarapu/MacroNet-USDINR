@@ -4,7 +4,7 @@
 
 ---
 
-## 🛠 Project Structure
+##  Project Structure
 
 ```text
 fx_prediction/
@@ -18,7 +18,7 @@ fx_prediction/
 ├── requirements.txt      # Python dependencies
 └── README.md             # Project documentation
 
-🧠 Features & Technical Highlights
+ Features & Technical Highlights
    Data Collection: Automated download of 15+ years of daily data for USD/INR, Brent Crude Oil, and the US Dollar Index.
    Stationary Feature Engineering: Implements Log-Returns and Normalized Indicators (Relative ATR, MACD/Price Ratio) to ensure data stationarity for superior model convergence.
    Temporal Integrity (Anti-Leakage): Rigorous application of $T-1$ feature lagging and $T+1$ target lead-shifting to eliminate Look-ahead Bias.
@@ -75,7 +75,7 @@ python model_training.py
 - Implement hyperparameter tuning
 - Add prediction interface
 
-🛡️ Data Flow & Integrity Check
+ Data Flow & Integrity Check
 
    Download: Fetch financial data → data/market_data.csv
 
@@ -83,7 +83,7 @@ python model_training.py
 
    This project ensures that features are derived from historical data only. Every feature in the final dataset is shifted by at least one period relative to the target, ensuring that the model never sees the price of the day it is attempting to predict. This prevents the common "99% accuracy" trap caused by data leakage.
 
-📈 Future Improvements
+ Future Improvements
 
 [ ] Implement LSTM/GRU recurrent layers for sequential memory.
 

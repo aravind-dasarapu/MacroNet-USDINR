@@ -1,122 +1,73 @@
 import pandas as pd
 import numpy as np
-import os
 
-def calculate_atr(high, low, close, period=14):
-    """Calculate Average True Range"""
-    tr1 = high - low
-    tr2 = abs(high - close.shift())
-    tr3 = abs(low - close.shift())
-    tr = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
-    atr = tr.rolling(window=period).mean()
-    return atr
+def preprocess_data(corr_threshold=0.012):
+    input_path = "/content/usdinr_macro_final.csv"
+    try:
+        # 1. LOAD DATA (We know this has 4666 rows)
+        df = pd.read_csv(input_path, index_col=0)
+        df.index = pd.to_datetime(df.index)
+        print(f"Starting Preprocessing with {len(df)} rows.")
+    except Exception as e:
+        print(f"Error: {e}")
+        return
 
-def calculate_macd(close, fast=12, slow=26, signal=9):
-    """Calculate MACD and Signal Line"""
-    ema_fast = close.ewm(span=fast).mean()
-    ema_slow = close.ewm(span=slow).mean()
-    macd = ema_fast - ema_slow
-    signal_line = macd.ewm(span=signal).mean()
-    histogram = macd - signal_line
-    return macd, signal_line, histogram
+    # 2. FIND THE MAIN PRICE COLUMN
+    main_close_col = next((c for c in ["USDINR_Close", "Close_USDINR=X"] if c in df.columns), None)
+    if not main_close_col:
+        main_close_col = [c for c in df.columns if "USDINR" in c and "Close" in c][0]
 
-def calculate_bollinger_width(close, period=20, num_std=2):
-    """Calculate Bollinger Bands Width"""
-    sma = close.rolling(window=period).mean()
-    std = close.rolling(window=period).std()
-    upper = sma + (std * num_std)
-    lower = sma - (std * num_std)
-    width = (upper - lower) / sma
-    return width
-
-def calculate_stochastic(high, low, close, period=14):
-    """Calculate Stochastic K%"""
-    lowest_low = low.rolling(window=period).min()
-    highest_high = high.rolling(window=period).max()
-    k_percent = 100 * (close - lowest_low) / (highest_high - lowest_low)
-    return k_percent
-
-def calculate_roc(close, period):
-    """Calculate Rate of Change"""
-    return close.pct_change(periods=period) * 100
-
-def calculate_rolling_correlation(series1, series2, period=14):
-    """Calculate Rolling Correlation"""
-    return series1.rolling(window=period).corr(series2)
-
-def apply_target_smoothing(df, window=3, alpha=0.3):
-    """
-    Applies smoothing to the Target variable to reduce noise.
-    """
-    # Option A: Simple Centered Moving Average (Balanced)
-    # This looks 1 day back and 1 day forward to find the true "path"
-    df['Target_SMA'] = df['Target'].rolling(window=window, center=True).mean()
-
-    # Option B: Exponential Smoothing (Weighted towards recent)
-    # Alpha 0.3 means 30% weight to current day, 70% to previous trend
-    df['Target_EMA'] = df['Target'].ewm(alpha=alpha, adjust=False).mean()
+    # 3. STATIONARY CORRELATION TEST (The Logic Fix)
+    # We create a temporary returns-only dataframe to find 'the winners'
+    # Comparing Return-to-Return is the only way to find forecasting signal
+    target = df["Target"].copy()
+    df_returns_test = df.drop(columns=["Target"]).pct_change().fillna(0)
     
-    # We use the smoothed version for training, but keep original for evaluation
-    # To use it, simply swap the target column name
-    df['Target'] = df['Target_EMA'] 
+    # Calculate correlation: Return of Feature vs. Return of USDINR
+    correlations = df_returns_test.corrwith(target).abs().sort_values(ascending=False)
     
-    return df.dropna()
-def preprocess_data():
-    input_path = os.path.join(os.path.dirname(__file__), "../data/data.csv")
-    df = pd.read_csv(input_path, index_col=0)
-
-    # Extract OHLC for each ticker
-    close = df['Close_USDINR=X']
-    high = df['High_USDINR=X']
-    low = df['Low_USDINR=X']
-    oil = df['Close_BZ=F']
-    dxy = df['Close_DX-Y.NYB']
-
-    # 1. Log Returns (Stationarity)
-    df['USDINR_Ret'] = np.log(close / close.shift(1)).shift(1)
-
-    # 2. RSI (Momentum Indicator)
-    delta = close.diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-    df['RSI'] = 100 - (100 / (1 + (gain / loss))).shift(1)
-
-
-    # 3. Moving Average crossover (Trend Indicator)
-    # Relative Volatility (ATR / Price)
-    df['ATR_Rel'] = (calculate_atr(high, low, close) / close).shift(1)
-    # MACD Histogram Relative to Price
-    macd_series, signal_series, _ = calculate_macd(close)
-    df['MACD_Rel'] = (macd_series / close).shift(1)
-
-    # Bollinger Width (Already a ratio)
-    df['BB_Width'] = calculate_bollinger_width(close).shift(1)  
-
-
-    # Correlations (Stationary -1 to 1)
-    df['Corr_Oil'] = close.rolling(14).corr(oil).shift(1)  # Shifted to prevent lookahead bias
-    df['Corr_DXY'] = close.rolling(14).corr(dxy).shift(1)
-
-    threshold = 0.0002  
-    # 15. Target (Predict the next return)
-    df['Target'] = (df['USDINR_Ret']> threshold).astype(int).shift(-1)
-
-    df['Vol_5'] = df['Target'].rolling(window=5).std().shift(1)
+    # Select features that meet threshold
+    relevant_features = correlations[correlations > corr_threshold].index.tolist()
     
-    # --- NEW: Volatility Momentum ---
-    # This tells the model if the market is "waking up"
-    df['Vol_15'] = df['Target'].rolling(window=15).std().shift(1)
-    df['Vol_Trend'] = df['Vol_5'] - df['Vol_15']
+    # SAFETY: Ensure we don't wipe the dataset
+    if len(relevant_features) < 15:
+        print("Correlation threshold too strict for returns. Picking Top 50 signals.")
+        relevant_features = correlations.head(50).index.tolist()
+
+    # 4. RECONSTRUCT DATASET
+    # We take the raw prices/values of the selected relevant features
+    processed = df[relevant_features].copy()
+    processed["Target"] = target
     
+    # 5. ADD TECHNICAL OVERLAYS (Memory & Momentum)
+    close = df[main_close_col]
+    log_ret = np.log(close / (close.shift(1) + 1e-9))
+    
+    # Add Lags and Distances
+    processed["USDINR_Lag1"] = log_ret.shift(1) * 100
+    # Use a 20-day SMA; 50 is often too long for daily forex returns
+    sma20 = close.rolling(20).mean()
+    processed["Dist_SMA20"] = ((close - sma20) / (sma20 + 1e-9)).shift(1) * 100
 
-    # df['RSI'] = df['RSI'].shift(1)
-    # df['ATR_Rel'] = df['ATR_Rel'].shift(1)
-    # df['MACD'] # Neutral RSI for missing values
-    # # --- Final Cleanup ---
+    # 6. MAXIMUM RETENTION CLEANUP (No Suicide Drop)
+    # A. Move target out
+    final_target = processed.pop("Target")
+    
+    # B. Bridge the 20-day SMA 'warm-up' holes and any holiday gaps
+    processed = processed.ffill().bfill()
+    
+    # C. Re-attach Target
+    processed["Target"] = final_target
+    
+    # D. SURGICAL DROP: Only drop where Target is missing (the very last row)
+    final_df = processed.dropna(subset=["Target"])
 
-    df = df.ffill().bfill().dropna()
-    df = apply_target_smoothing(df)
+    print(f"--- PREPROCESSING COMPLETE ---")
+    print(f"Features Selected: {final_df.shape[1]-1}")
+    print(f"Total Rows Retained: {len(final_df)}") # Should be ~4665
+    
+    final_df.to_csv("/content/usdinr_processed_data.csv")
+    return final_df
 
-    output_path = os.path.join(os.path.dirname(__file__), "../data/processed_data.csv")
-    df.to_csv(output_path)
-    print(f"✅ Enhanced Preprocessing: Created {len(df.columns)} features including ATR, MACD, Bollinger Bands, ROC, Stochastic, and correlations.")
+if __name__ == "__main__":
+    processed_df = preprocess_data(corr_threshold=0.01)
