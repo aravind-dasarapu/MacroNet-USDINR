@@ -1,0 +1,20 @@
+2026-03-12 08:36:32 - data_download - INFO - Starting multi-asset data download
+2026-03-12 08:36:34 - data_download - INFO - Downloaded 4666 rows for USDINR
+2026-03-12 08:36:34 - data_download - INFO - Master calendar established: 4666 trading days
+2026-03-12 08:36:35 - data_download - INFO - Downloaded 4666 rows for USDINR
+2026-03-12 08:36:35 - data_download - INFO - Downloaded 4477 rows for Oil
+2026-03-12 08:36:36 - data_download - INFO - Downloaded 4530 rows for DXY
+2026-03-12 08:36:37 - data_download - INFO - Downloaded 4528 rows for Gold
+2026-03-12 08:36:37 - data_download - INFO - Downloaded 4413 rows for Nifty50
+2026-03-12 08:36:38 - data_download - INFO - Downloaded 4528 rows for SP500
+2026-03-12 08:36:38 - data_download - INFO - Downloaded 4528 rows for VIX
+2026-03-12 08:36:39 - data_download - INFO - Downloaded 4527 rows for US10Y
+2026-03-12 08:36:40 - data_download - INFO - Downloaded 4527 rows for USTBILL
+2026-03-12 08:36:41 - data_download - INFO - Downloaded 4528 rows for EEM
+2026-03-12 08:36:41 - data_download - INFO - Downloaded 4682 rows for CNY
+2026-03-12 08:36:42 - data_download - INFO - Downloaded 4667 rows for SGD
+2026-03-12 08:36:42 - data_download - INFO - Aligning data to master calendar
+2026-03-12 08:36:42 - data_download - INFO - Unified dataset created: (4666, 48)
+2026-03-12 08:36:42 - data_download - INFO - Generating technical features
+2026-03-12 08:36:42 - data_download - INFO - Dataset complete: 144 features, 4666 samples
+2026-03-12 08:36:43 - data_download - INFO - Data saved to ..\data\data.csv

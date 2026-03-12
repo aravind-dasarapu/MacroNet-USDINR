@@ -1,0 +1,38 @@
+2026-03-11 22:45:53 - pipeline - INFO - ============================================================
+2026-03-11 22:45:53 - pipeline - INFO - FX Prediction Pipeline Starting
+2026-03-11 22:45:53 - pipeline - INFO - ============================================================
+2026-03-11 22:45:53 - pipeline - INFO - 
+[Step 1/3] Downloading financial data
+2026-03-11 22:45:53 - pipeline - INFO - ------------------------------------------------------------
+2026-03-11 22:46:06 - pipeline - INFO - Data download completed successfully
+2026-03-11 22:46:06 - pipeline - INFO - 
+[Step 2/3] Preprocessing data
+2026-03-11 22:46:06 - pipeline - INFO - ------------------------------------------------------------
+2026-03-11 22:46:06 - pipeline - INFO - Preprocessing completed successfully
+2026-03-11 22:46:06 - pipeline - INFO - 
+[Step 3/3] Training model
+2026-03-11 22:46:06 - pipeline - INFO - ------------------------------------------------------------
+2026-03-11 23:00:03 - pipeline - ERROR - Pipeline failed: Object of type float32 is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\src\main.py", line 73, in run
+    summary = trainer.train_model()
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\src\model_training.py", line 403, in train_model
+    json.dump(summary, f, indent=2)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ProgramData\miniconda3\Lib\json\__init__.py", line 181, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "C:\ProgramData\miniconda3\Lib\json\encoder.py", line 435, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "C:\ProgramData\miniconda3\Lib\json\encoder.py", line 409, in _iterencode_dict
+    yield from chunks
+  File "C:\ProgramData\miniconda3\Lib\json\encoder.py", line 328, in _iterencode_list
+    yield from chunks
+  File "C:\ProgramData\miniconda3\Lib\json\encoder.py", line 409, in _iterencode_dict
+    yield from chunks
+  File "C:\ProgramData\miniconda3\Lib\json\encoder.py", line 442, in _iterencode
+    o = _default(o)
+  File "C:\ProgramData\miniconda3\Lib\json\encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type float32 is not JSON serializable

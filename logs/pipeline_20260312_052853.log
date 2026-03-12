@@ -1,0 +1,24 @@
+2026-03-12 05:28:53 - pipeline - INFO - ============================================================
+2026-03-12 05:28:53 - pipeline - INFO - FX Prediction Pipeline Starting
+2026-03-12 05:28:53 - pipeline - INFO - ============================================================
+2026-03-12 05:28:53 - pipeline - INFO - 
+[Step 1/3] Downloading financial data
+2026-03-12 05:28:53 - pipeline - INFO - ------------------------------------------------------------
+2026-03-12 05:29:03 - pipeline - INFO - Data download completed successfully
+2026-03-12 05:29:03 - pipeline - INFO - 
+[Step 2/3] Preprocessing data
+2026-03-12 05:29:03 - pipeline - INFO - ------------------------------------------------------------
+2026-03-12 05:29:04 - pipeline - INFO - Preprocessing completed successfully
+2026-03-12 05:29:04 - pipeline - INFO - 
+[Step 3/3] Training model
+2026-03-12 05:29:04 - pipeline - INFO - ------------------------------------------------------------
+2026-03-12 05:29:04 - pipeline - ERROR - Pipeline failed: 'directional_loss_penalty'
+Traceback (most recent call last):
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\src\main.py", line 73, in run
+    summary = trainer.train_model()
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\src\model_training.py", line 343, in train_model
+    model = self.build_model((window_size, features))
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\src\model_training.py", line 168, in build_model
+    loss=DirectionalLogCoshLoss(penalty_weight=model_config['directional_loss_penalty']),
+                                               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'directional_loss_penalty'

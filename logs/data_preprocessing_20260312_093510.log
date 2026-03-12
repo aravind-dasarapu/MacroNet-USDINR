@@ -1,0 +1,18 @@
+2026-03-12 09:35:10 - data_preprocessing - INFO - Starting data preprocessing
+2026-03-12 09:35:10 - data_preprocessing - INFO - Loaded data: (4666, 145)
+2026-03-12 09:35:10 - data_preprocessing - INFO - Using USDINR_Close_Ret as main price column
+2026-03-12 09:35:10 - data_preprocessing - INFO - Top 10 correlations:
+USDINR_High_Ret       0.100479
+USDINR_Close_Ret      0.096156
+Nifty50_Close_Ret     0.093225
+Nifty50_High_Ret      0.078442
+Nifty50_Low_Ret       0.059438
+USDINR_Low_Ret        0.052203
+USDINR_High_DistMA    0.051105
+SP500_Open_DistMA     0.041486
+Nifty50_Open_Ret      0.041385
+DXY_High_Ret          0.039448
+dtype: float64
+2026-03-12 09:35:10 - data_preprocessing - INFO - Selected 65 features
+2026-03-12 09:35:10 - data_preprocessing - INFO - Preprocessing complete: 70 features, 4666 samples
+2026-03-12 09:35:11 - data_preprocessing - INFO - Processed data saved to ..\data\processed_data.csv

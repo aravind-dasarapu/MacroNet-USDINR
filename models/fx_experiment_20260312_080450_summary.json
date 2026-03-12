@@ -1,0 +1,69 @@
+{
+  "experiment_name": "fx_experiment_20260312_080450",
+  "timestamp": "20260312_080450",
+  "config": {
+    "model": {
+      "window_size": 30,
+      "lstm_units": [
+        256,
+        128
+      ],
+      "dropout_rate_lstm": 0.1,
+      "dense_units": 64,
+      "conv_filters": 64,
+      "conv_kernel_size": 3,
+      "dropout_rate_conv": 0.3,
+      "spatial_dropout": 0.1,
+      "learning_rate": 0.0003,
+      "batch_size": 64,
+      "epochs": 100,
+      "dropout_rate_dense": 0.3,
+      "early_stopping_patience": 20,
+      "directional_penalty": 1.7
+    },
+    "training": {
+      "cv_splits": 5,
+      "target_scale": 100,
+      "random_seed": 42
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "directional_accuracy": 54.274611398963735,
+      "mae": "0.2711447",
+      "train_samples": 776,
+      "test_samples": 772
+    },
+    {
+      "fold": 2,
+      "directional_accuracy": 50.259067357512954,
+      "mae": "0.12373119",
+      "train_samples": 1548,
+      "test_samples": 772
+    },
+    {
+      "fold": 3,
+      "directional_accuracy": 52.07253886010362,
+      "mae": "0.15117405",
+      "train_samples": 2320,
+      "test_samples": 772
+    },
+    {
+      "fold": 4,
+      "directional_accuracy": 53.23834196891192,
+      "mae": "0.12047595",
+      "train_samples": 3092,
+      "test_samples": 772
+    },
+    {
+      "fold": 5,
+      "directional_accuracy": 57.12435233160622,
+      "mae": "0.07391345",
+      "train_samples": 3864,
+      "test_samples": 772
+    }
+  ],
+  "average_directional_accuracy": 53.39378238341969,
+  "average_mae": "0.14808787"
+}

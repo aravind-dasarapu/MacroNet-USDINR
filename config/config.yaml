@@ -1,0 +1,70 @@
+# FX Prediction Configuration File
+
+data:
+  data_dir: "../data"
+  raw_file: "data.csv"
+  processed_file: "processed_data.csv"
+  tickers:
+    USDINR: "USDINR=X"
+    Oil: "BZ=F"
+    DXY: "DX-Y.NYB"
+    Gold: "GC=F"
+    Nifty50: "^NSEI"
+    SP500: "^GSPC"
+    VIX: "^VIX"
+    US10Y: "^TNX"
+    USTBILL: "^IRX"
+    EEM: "EEM"
+    CNY: "CNY=X"
+    SGD: "SGDINR=X"
+  download_period: "18y"
+  download_interval: "1d"
+
+preprocessing:
+  correlation_threshold: 0.012
+  min_features: 15
+  top_features: 50
+  epsilon: 1.0e-9
+  ewm_alpha: 0.4
+  rolling_window: 20
+  volatility_window: 5
+
+model:
+  window_size: 30
+  lstm_units: [128, 64]
+  dropout_rate_lstm_1: 0.4
+  dropout_rate_lstm_2: 0.2
+  dense_units: 32
+  conv_filters: 64
+  conv_kernel_size: 3
+  dropout_rate_conv: 0.4
+  spatial_dropout: 0.2
+  learning_rate: 0.0005
+  batch_size: 32
+  epochs: 100
+  dropout_rate_dense: 0.2
+  early_stopping_patience: 5
+  directional_penalty: 2.5
+
+training:
+  cv_splits: 7
+  target_scale: 100
+  random_seed: 42
+
+monitoring:
+  tensorboard:
+    enabled: true
+    log_dir: "../logs/tensorboard"
+    update_freq: "epoch"
+  wandb:
+    enabled: false
+    project: "fx-prediction-usdinr"
+    entity: null # Set your wandb username/team
+    tags: ["forex", "lstm", "timeseries"]
+
+deployment:
+  model_dir: "../models"
+  api_host: "0.0.0.0"
+  api_port: 8001
+  model_version: "v1"
+  enable_cors: true

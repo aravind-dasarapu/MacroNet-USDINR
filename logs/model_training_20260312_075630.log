@@ -1,0 +1,14 @@
+2026-03-12 07:56:30 - model_training - INFO - Starting model training pipeline
+2026-03-12 07:56:30 - model_training - INFO - Loaded data: 4666 samples, 70 features
+2026-03-12 07:56:30 - model_training - INFO - Created 4636 sequences of 30 timesteps
+2026-03-12 07:56:30 - model_training - INFO - 
+==================================================
+2026-03-12 07:56:30 - model_training - INFO - Training Fold 1/5
+2026-03-12 07:56:30 - model_training - INFO - ==================================================
+2026-03-12 07:56:30 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_075630\fold_1
+2026-03-12 07:57:48 - model_training - INFO - Fold 1 Results - Directional Accuracy: 50.26%, MAE: 0.2406
+2026-03-12 07:57:48 - model_training - INFO - 
+==================================================
+2026-03-12 07:57:48 - model_training - INFO - Training Fold 2/5
+2026-03-12 07:57:48 - model_training - INFO - ==================================================
+2026-03-12 07:57:48 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_075630\fold_2

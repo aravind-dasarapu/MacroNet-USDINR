@@ -1,0 +1,52 @@
+2026-03-12 09:14:44 - model_training - INFO - Starting model training pipeline
+2026-03-12 09:14:44 - model_training - INFO - Loaded data: 4666 samples, 70 features
+2026-03-12 09:14:44 - model_training - INFO - Created 4636 sequences of 30 timesteps
+2026-03-12 09:14:44 - model_training - INFO - 
+==================================================
+2026-03-12 09:14:44 - model_training - INFO - Training Fold 1/7
+2026-03-12 09:14:44 - model_training - INFO - ==================================================
+2026-03-12 09:14:44 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_1
+2026-03-12 09:15:51 - model_training - INFO - Fold 1 Results - Directional Accuracy: 49.91%, MAE: 0.2151
+2026-03-12 09:15:51 - model_training - INFO - 
+==================================================
+2026-03-12 09:15:51 - model_training - INFO - Training Fold 2/7
+2026-03-12 09:15:51 - model_training - INFO - ==================================================
+2026-03-12 09:15:51 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_2
+2026-03-12 09:16:55 - model_training - INFO - Fold 2 Results - Directional Accuracy: 49.05%, MAE: 0.1953
+2026-03-12 09:16:55 - model_training - INFO - 
+==================================================
+2026-03-12 09:16:55 - model_training - INFO - Training Fold 3/7
+2026-03-12 09:16:55 - model_training - INFO - ==================================================
+2026-03-12 09:16:56 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_3
+2026-03-12 09:17:54 - model_training - INFO - Fold 3 Results - Directional Accuracy: 50.95%, MAE: 0.1377
+2026-03-12 09:17:54 - model_training - INFO - 
+==================================================
+2026-03-12 09:17:54 - model_training - INFO - Training Fold 4/7
+2026-03-12 09:17:54 - model_training - INFO - ==================================================
+2026-03-12 09:17:54 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_4
+2026-03-12 09:20:04 - model_training - INFO - Fold 4 Results - Directional Accuracy: 51.99%, MAE: 0.1424
+2026-03-12 09:20:04 - model_training - INFO - 
+==================================================
+2026-03-12 09:20:04 - model_training - INFO - Training Fold 5/7
+2026-03-12 09:20:04 - model_training - INFO - ==================================================
+2026-03-12 09:20:05 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_5
+2026-03-12 09:21:53 - model_training - INFO - Fold 5 Results - Directional Accuracy: 49.91%, MAE: 0.1403
+2026-03-12 09:21:53 - model_training - INFO - 
+==================================================
+2026-03-12 09:21:53 - model_training - INFO - Training Fold 6/7
+2026-03-12 09:21:53 - model_training - INFO - ==================================================
+2026-03-12 09:21:53 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_6
+2026-03-12 09:23:23 - model_training - INFO - Fold 6 Results - Directional Accuracy: 51.47%, MAE: 0.1097
+2026-03-12 09:23:23 - model_training - INFO - 
+==================================================
+2026-03-12 09:23:23 - model_training - INFO - Training Fold 7/7
+2026-03-12 09:23:23 - model_training - INFO - ==================================================
+2026-03-12 09:23:24 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260312_091444\fold_7
+2026-03-12 09:24:22 - model_training - INFO - Fold 7 Results - Directional Accuracy: 52.85%, MAE: 0.0947
+2026-03-12 09:24:22 - model_training - INFO - Final model saved: ..\models\fx_experiment_20260312_091444_final.keras
+2026-03-12 09:24:22 - model_training - INFO - 
+Experiment summary saved: ..\models\fx_experiment_20260312_091444_summary.json
+2026-03-12 09:24:22 - model_training - INFO - 
+Overall Performance:
+  Average Directional Accuracy: 50.88%
+  Average MAE: 0.1479

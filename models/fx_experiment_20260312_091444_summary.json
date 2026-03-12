@@ -1,0 +1,83 @@
+{
+  "experiment_name": "fx_experiment_20260312_091444",
+  "timestamp": "20260312_091444",
+  "config": {
+    "model": {
+      "window_size": 30,
+      "lstm_units": [
+        128,
+        64
+      ],
+      "dropout_rate_lstm": 0.3,
+      "dense_units": 32,
+      "conv_filters": 64,
+      "conv_kernel_size": 5,
+      "dropout_rate_conv": 0.3,
+      "spatial_dropout": 0.2,
+      "learning_rate": 0.0002,
+      "batch_size": 32,
+      "epochs": 100,
+      "dropout_rate_dense": 0.3,
+      "early_stopping_patience": 7,
+      "directional_penalty": 2.5
+    },
+    "training": {
+      "cv_splits": 7,
+      "target_scale": 100,
+      "random_seed": 42
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "directional_accuracy": 49.91364421416235,
+      "mae": "0.21512222",
+      "train_samples": 583,
+      "test_samples": 579
+    },
+    {
+      "fold": 2,
+      "directional_accuracy": 49.05008635578584,
+      "mae": "0.19531874",
+      "train_samples": 1162,
+      "test_samples": 579
+    },
+    {
+      "fold": 3,
+      "directional_accuracy": 50.94991364421416,
+      "mae": "0.13767028",
+      "train_samples": 1741,
+      "test_samples": 579
+    },
+    {
+      "fold": 4,
+      "directional_accuracy": 51.98618307426598,
+      "mae": "0.14239176",
+      "train_samples": 2000,
+      "test_samples": 579
+    },
+    {
+      "fold": 5,
+      "directional_accuracy": 49.91364421416235,
+      "mae": "0.14030553",
+      "train_samples": 2000,
+      "test_samples": 579
+    },
+    {
+      "fold": 6,
+      "directional_accuracy": 51.46804835924007,
+      "mae": "0.10972161",
+      "train_samples": 2000,
+      "test_samples": 579
+    },
+    {
+      "fold": 7,
+      "directional_accuracy": 52.84974093264248,
+      "mae": "0.09468218",
+      "train_samples": 2000,
+      "test_samples": 579
+    }
+  ],
+  "average_directional_accuracy": 50.87589439921045,
+  "average_mae": "0.14788747"
+}

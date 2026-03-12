@@ -1,0 +1,7 @@
+2026-03-12 05:29:04 - model_training - INFO - Starting model training pipeline
+2026-03-12 05:29:04 - model_training - INFO - Loaded data: 4666 samples, 65 features
+2026-03-12 05:29:04 - model_training - INFO - Created 4636 sequences of 30 timesteps
+2026-03-12 05:29:04 - model_training - INFO - 
+==================================================
+2026-03-12 05:29:04 - model_training - INFO - Training Fold 1/5
+2026-03-12 05:29:04 - model_training - INFO - ==================================================

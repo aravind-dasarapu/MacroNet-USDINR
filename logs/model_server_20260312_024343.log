@@ -1,0 +1,430 @@
+2026-03-12 02:43:43 - model_server - INFO - Loading model: ..\models\fx_experiment_20260312_003238_final.keras
+2026-03-12 02:43:43 - model_server - INFO - Model loaded successfully: fx_experiment_20260312_003238_final
+2026-03-12 02:51:13 - model_server - ERROR - Prediction error: Graph execution error:
+
+Detected at node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1 defined at (most recent call last):
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 249, in <module>
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\main.py", line 606, in run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\server.py", line 75, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 195, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 118, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 712, in run_until_complete
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 683, in run_forever
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 2050, in _run_once
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\events.py", line 89, in _run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\applications.py", line 1160, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\cors.py", line 87, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 130, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 116, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 670, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 324, in run_endpoint_function
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 226, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 126, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 588, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 282, in one_step_on_data_distributed
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 125, in wrapper
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 271, in one_step_on_data
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 110, in predict_step
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\sequential.py", line 220, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 183, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\function.py", line 206, in _run_through_graph
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 647, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\normalization\batch_normalization.py", line 277, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\nn.py", line 2443, in batch_normalization
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\nn.py", line 1376, in batch_normalization
+
+Incompatible shapes: [1,30,67] vs. [66]
+	 [[{{node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1}}]] [Op:__inference_one_step_on_data_distributed_1198]
+2026-03-12 02:51:33 - model_server - ERROR - Prediction error: Graph execution error:
+
+Detected at node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1 defined at (most recent call last):
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 249, in <module>
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\main.py", line 606, in run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\server.py", line 75, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 195, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 118, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 712, in run_until_complete
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 683, in run_forever
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 2050, in _run_once
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\events.py", line 89, in _run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\applications.py", line 1160, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\cors.py", line 87, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 130, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 116, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 670, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 324, in run_endpoint_function
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 226, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 126, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 588, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 282, in one_step_on_data_distributed
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 125, in wrapper
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 271, in one_step_on_data
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 110, in predict_step
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\sequential.py", line 220, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 183, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\function.py", line 206, in _run_through_graph
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 647, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\normalization\batch_normalization.py", line 277, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\nn.py", line 2443, in batch_normalization
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\nn.py", line 1376, in batch_normalization
+
+Incompatible shapes: [1,30,67] vs. [66]
+	 [[{{node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1}}]] [Op:__inference_one_step_on_data_distributed_1198]
+2026-03-12 02:52:13 - model_server - ERROR - Prediction error: Graph execution error:
+
+Detected at node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1 defined at (most recent call last):
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 249, in <module>
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\main.py", line 606, in run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\server.py", line 75, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 195, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 118, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 712, in run_until_complete
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 683, in run_forever
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 2050, in _run_once
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\events.py", line 89, in _run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\applications.py", line 1160, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\cors.py", line 87, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 130, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 116, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 670, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 324, in run_endpoint_function
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 226, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 126, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 588, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 282, in one_step_on_data_distributed
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 125, in wrapper
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 271, in one_step_on_data
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 110, in predict_step
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\sequential.py", line 220, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 183, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\function.py", line 206, in _run_through_graph
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 647, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\normalization\batch_normalization.py", line 277, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\nn.py", line 2443, in batch_normalization
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\nn.py", line 1376, in batch_normalization
+
+Incompatible shapes: [1,30,67] vs. [66]
+	 [[{{node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1}}]] [Op:__inference_one_step_on_data_distributed_1198]
+2026-03-12 03:06:18 - model_server - ERROR - Prediction error: Graph execution error:
+
+Detected at node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1 defined at (most recent call last):
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 249, in <module>
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\main.py", line 606, in run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\server.py", line 75, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 195, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\runners.py", line 118, in run
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 712, in run_until_complete
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 683, in run_forever
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\base_events.py", line 2050, in _run_once
+
+  File "C:\ProgramData\miniconda3\Lib\asyncio\events.py", line 89, in _run
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 416, in run_asgi
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\applications.py", line 1160, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\cors.py", line 87, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 130, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 116, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 670, in app
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\fastapi\routing.py", line 324, in run_endpoint_function
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 226, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\deployment\api.py", line 126, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 588, in predict
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 282, in one_step_on_data_distributed
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 125, in wrapper
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 271, in one_step_on_data
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\trainer.py", line 110, in predict_step
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\sequential.py", line 220, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 183, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\function.py", line 206, in _run_through_graph
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\models\functional.py", line 647, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\layer.py", line 953, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 117, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\operation.py", line 59, in __call__
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\utils\traceback_utils.py", line 156, in error_handler
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\layers\normalization\batch_normalization.py", line 277, in call
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\ops\nn.py", line 2443, in batch_normalization
+
+  File "C:\Users\Shreya\OneDrive\Desktop\self_master\fx_prediction\.venv\Lib\site-packages\keras\src\backend\tensorflow\nn.py", line 1376, in batch_normalization
+
+Incompatible shapes: [1,30,67] vs. [66]
+	 [[{{node sequential_4_1/batch_normalization_8_1/batchnorm/mul_1}}]] [Op:__inference_one_step_on_data_distributed_1198]

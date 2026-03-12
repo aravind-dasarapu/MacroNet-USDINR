@@ -1,0 +1,34 @@
+2026-03-11 22:21:25 - model_training - INFO - Starting model training pipeline
+2026-03-11 22:21:25 - model_training - INFO - Loaded data: 4666 samples, 66 features
+2026-03-11 22:21:25 - model_training - INFO - Created 4636 sequences of 30 timesteps
+2026-03-11 22:21:25 - model_training - INFO - 
+==================================================
+2026-03-11 22:21:25 - model_training - INFO - Training Fold 1/5
+2026-03-11 22:21:25 - model_training - INFO - ==================================================
+2026-03-11 22:21:25 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260311_222125\fold_1
+2026-03-11 22:22:38 - model_training - INFO - Fold 1 Results - Directional Accuracy: 50.91%, MAE: 0.2338
+2026-03-11 22:22:38 - model_training - INFO - 
+==================================================
+2026-03-11 22:22:38 - model_training - INFO - Training Fold 2/5
+2026-03-11 22:22:38 - model_training - INFO - ==================================================
+2026-03-11 22:22:38 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260311_222125\fold_2
+2026-03-11 22:24:17 - model_training - INFO - Fold 2 Results - Directional Accuracy: 49.74%, MAE: 0.1249
+2026-03-11 22:24:17 - model_training - INFO - 
+==================================================
+2026-03-11 22:24:17 - model_training - INFO - Training Fold 3/5
+2026-03-11 22:24:17 - model_training - INFO - ==================================================
+2026-03-11 22:24:17 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260311_222125\fold_3
+2026-03-11 22:26:23 - model_training - INFO - Fold 3 Results - Directional Accuracy: 53.76%, MAE: 0.1504
+2026-03-11 22:26:23 - model_training - INFO - 
+==================================================
+2026-03-11 22:26:23 - model_training - INFO - Training Fold 4/5
+2026-03-11 22:26:23 - model_training - INFO - ==================================================
+2026-03-11 22:26:23 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260311_222125\fold_4
+2026-03-11 22:29:19 - model_training - INFO - Fold 4 Results - Directional Accuracy: 54.79%, MAE: 0.1193
+2026-03-11 22:29:19 - model_training - INFO - 
+==================================================
+2026-03-11 22:29:19 - model_training - INFO - Training Fold 5/5
+2026-03-11 22:29:19 - model_training - INFO - ==================================================
+2026-03-11 22:29:20 - model_training - INFO - TensorBoard logging to: ..\logs\tensorboard\fx_experiment_20260311_222125\fold_5
+2026-03-11 22:32:47 - model_training - INFO - Fold 5 Results - Directional Accuracy: 58.16%, MAE: 0.0732
+2026-03-11 22:32:47 - model_training - INFO - Final model saved: ..\models\fx_experiment_20260311_222125_final.keras

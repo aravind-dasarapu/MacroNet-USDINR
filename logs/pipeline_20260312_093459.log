@@ -1,0 +1,23 @@
+2026-03-12 09:34:59 - pipeline - INFO - ============================================================
+2026-03-12 09:34:59 - pipeline - INFO - FX Prediction Pipeline Starting
+2026-03-12 09:34:59 - pipeline - INFO - ============================================================
+2026-03-12 09:34:59 - pipeline - INFO - 
+[Step 1/3] Downloading financial data
+2026-03-12 09:34:59 - pipeline - INFO - ------------------------------------------------------------
+2026-03-12 09:35:10 - pipeline - INFO - Data download completed successfully
+2026-03-12 09:35:10 - pipeline - INFO - 
+[Step 2/3] Preprocessing data
+2026-03-12 09:35:10 - pipeline - INFO - ------------------------------------------------------------
+2026-03-12 09:35:11 - pipeline - INFO - Preprocessing completed successfully
+2026-03-12 09:35:11 - pipeline - INFO - 
+[Step 3/3] Training model
+2026-03-12 09:35:11 - pipeline - INFO - ------------------------------------------------------------
+2026-03-12 09:45:56 - pipeline - INFO - Model training completed successfully
+2026-03-12 09:45:56 - pipeline - INFO - 
+============================================================
+2026-03-12 09:45:56 - pipeline - INFO - Pipeline Completed Successfully!
+2026-03-12 09:45:56 - pipeline - INFO - ============================================================
+2026-03-12 09:45:56 - pipeline - INFO - Experiment: fx_experiment_20260312_093511
+2026-03-12 09:45:56 - pipeline - INFO - Average Directional Accuracy: 51.99%
+2026-03-12 09:45:56 - pipeline - INFO - Average MAE: 0.1412
+2026-03-12 09:45:56 - pipeline - INFO - Model saved to: ../models
